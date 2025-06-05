@@ -1,8 +1,7 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
-#include <structmember.h> // Required for PyMemberDef
+#include <structmember.h>
 
-// Include your Nicolay C library header
 #include "nicolay_flow_sensor.h"
 
 // --- Helper Functions for Error Handling ---
@@ -223,7 +222,7 @@ static PyObject *NicolaySensor_get_flow_and_pressure(NicolaySensorObject *self, 
     }
 
     // Return as a tuple
-    return Py_BuildValue("(li)", flow_mSlm, raw_pressure_counts); // 'l' for long int, 'i' for int
+    return Py_BuildValue("(ii)", flow_mSlm, raw_pressure_counts); // 'i' for int32_t, 'i' for int16_t
 }
 
 
@@ -292,7 +291,7 @@ static PyMemberDef NicolaySensor_members[] = {
 // --- Type definition for NicolaySensorObject ---
 static PyTypeObject NicolaySensorType = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name = "nicolay_sensor_lib.NicolaySensor", // ModuleName.ClassName
+    .tp_name = "nicolay_flow_meter_connector.NicolaySensor", // ModuleName.ClassName
     .tp_doc = "Nicolay Flow Sensor object.",
     .tp_basicsize = sizeof(NicolaySensorObject),
     .tp_itemsize = 0,
@@ -314,7 +313,7 @@ static PyMethodDef module_methods[] = {
 // --- Module Definition Structure ---
 static struct PyModuleDef nicolay_sensor_module = {
     PyModuleDef_HEAD_INIT,
-    "nicolay_sensor_lib", // Name of the module
+    "nicolay_flow_meter_connector", // Name of the module
     "Python bindings for the Nicolay Flow Sensor C library.", // Module docstring
     -1, // Size of per-interpreter state of the module, or -1 if the module keeps state in global variables.
     module_methods // Module-level methods
@@ -322,7 +321,7 @@ static struct PyModuleDef nicolay_sensor_module = {
 
 // --- Module Initialization Function ---
 // This is the entry point called when Python imports the module
-PyMODINIT_FUNC PyInit_nicolay_sensor_lib(void) {
+PyMODINIT_FUNC PyInit_nicolay_flow_meter_connector(void) {
     PyObject *m;
 
     // Prepare NicolaySensorType

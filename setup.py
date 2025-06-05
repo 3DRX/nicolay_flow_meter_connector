@@ -1,6 +1,7 @@
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 import sys
 
+module_name = "nicolay_flow_meter_connector"
 c_src_files = [
     "nicolay_python_binding.c",
     "nicolay_flow_sensor.c",
@@ -18,13 +19,13 @@ else:
 
 
 nicolay_sensor_module = Extension(
-    "nicolay_flow_meter_connector",
+    module_name,
     sources=c_src_files,
     extra_link_args=extra_link_args,
 )
 
 setup(
-    name="nicolay-flow-meter-connector",
+    name=module_name,
     version="0.1.0",
     author="Jingyang Kang",
     author_email="3drxkjy@gmail.com",
@@ -32,6 +33,7 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/3DRX/nicolay_flow_meter_connector",
+    packages=find_packages(),
     ext_modules=[nicolay_sensor_module],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -40,5 +42,11 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering",
     ],
+    package_dir={'': '.'},
+    package_data={
+        'nicolay_flow_meter_connector': ['py.typed', '*.pyi'],
+        # Or if your .pyi is at the root level, like my_module.pyi
+        # '': ['my_module.pyi'],
+    },
     python_requires=">=3.8",
 )
