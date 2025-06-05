@@ -18,12 +18,16 @@ static speed_t get_baud_rate_constant(int baud_rate)
 		return B4800;
 	case 9600:
 		return B9600;
-	// case 14400:   return B14400; // May not be defined on all systems, often
-	// B9600 * 1.5
+#ifdef B14400
+	case 14400:
+		return B14400;
+#endif
 	case 19200:
 		return B19200;
-	// case 28800:   return B28800; // May not be defined, often B14400*2 or
-	// B9600*3
+#ifdef B28800
+	case 28800:
+		return B28800;
+#endif
 	case 38400:
 		return B38400;
 	case 57600:
@@ -67,10 +71,14 @@ static speed_t get_baud_rate_constant(int baud_rate)
 	case 384000:
 		return B384000;
 #endif
+#ifdef B500000
 	case 500000:
 		return B500000;
+#endif
+#ifdef B576000
 	case 576000:
 		return B576000;
+#endif
 	// Add other baud rates as needed and available
 	default:
 		fprintf(stderr, "Unsupported baud rate: %d\n", baud_rate);
