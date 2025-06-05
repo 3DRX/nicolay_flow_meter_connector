@@ -8,7 +8,7 @@ c_src_files = [
 extra_link_args = []
 
 if sys.platform.startswith("linux") or sys.platform == "darwin":
-    c_src_files.append("platform_serial_linux.c")
+    c_src_files.append("platform_serial_posix.c")
 elif sys.platform == "win32":
     print("Windows is currently not supported")
     pass
@@ -36,7 +36,6 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: C",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering",
