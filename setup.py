@@ -11,7 +11,7 @@ extra_link_args = []
 if sys.platform.startswith("linux") or sys.platform == "darwin":
     c_src_files.append("platform_serial_posix.c")
 elif sys.platform == "win32":
-    print("Windows is currently not supported")
+    c_src_files.append("platform_serial_windows.c")
     pass
 else:
     print("Unknown platform, not supported")
